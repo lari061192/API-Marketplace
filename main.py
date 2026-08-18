@@ -2,11 +2,20 @@ from fastapi import FastAPI
 
 app = FastAPI()
 
+# Rota inicial (teste)
 @app.get("/")
-
 def raiz():
-    return {"Mensagem": "API da Escola no ar!"}
+    return {"mensagem": "Marketplace funcionando!"}
 
-@app.get("/status")
-def status():
-    return {"status": "OK", "Versão": "1.0"}
+# Lista de produtos (simples, só na memória)
+produtos = []
+
+@app.get("/produtos")
+def listar_produtos():
+    return produtos
+
+@app.post("/produtos")
+def criar_produto(nome: str, preco: float):
+    produto = {"nome": nome, "preco": preco}
+    produtos.append(produto)
+    return produto
